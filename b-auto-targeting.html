@@ -45,11 +45,11 @@
         {
           continue;
         }
-        // Replace target if two have equal health
-          if (target && target.health > enemy.health) {
+        // Replace target if two have equal health, or if enemy has greater health
+        if (target && target.health > enemy.health) {
           continue;
-          }
-          target = enemy;
+        }
+        target = enemy;
       }
       return target;
     }
