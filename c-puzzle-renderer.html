@@ -18,10 +18,28 @@
   <script>
     const canvas = document.querySelector("#board");
     const ctx = canvas.getContext("2d");
+    let orangeColor = "#e6a23c"
+    let purpleColor = "#6555aa"
+    let cyanColor = "#248a87"
     const layouts = [
-      { label: "Row", positions: [[55, 80], [175, 80], [295, 80]], colors: ["#e6a23c", "#6555aa", "#248a87"] },
-      { label: "Stack", positions: [[135, 55], [175, 80], [215, 105]], colors: ["#248a87", "#e6a23c", "#6555aa"] },
+      {
+        label: "Row",
+        tiles: [
+          {positions: [55, 80], color: orangeColor},
+          {positions: [175, 80], color: purpleColor},
+          {positions: [295, 80], color: cyanColor},
+        ],
+      },
+      {
+        label: "Stack",
+        tiles: [
+          {positions: [135, 55], color: cyanColor},
+          {positions: [175, 80], color: orangeColor},
+          {positions: [215, 105], color: purpleColor},
+        ],
+      },
     ];
+
     let layoutIndex = 0;
     const options = { experimentalShadows: false };
 
@@ -34,8 +52,9 @@
       const layout = layouts[layoutIndex];
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       document.querySelector("#arrangement").textContent = `Arrangement: ${layout.label}`;
-      layout.positions.forEach(([x, y], index) => {
-        paintTile(x, y, layout.colors[index]);
+      layout.tiles.forEach(({positions, color}) => {
+        const [x, y] = positions;
+        paintTile(x, y, color);
       });
       // If options.experimentalShadows, try drawing a fancy second pass later.
       // ctx.shadowBlur = 12;
